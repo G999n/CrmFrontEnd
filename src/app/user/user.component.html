@@ -1,0 +1,227 @@
+<div class="user-container">
+  <!-- Add New User -->
+  <div class="user-form">
+    <h3>Add New User</h3>
+    <form (ngSubmit)="onAddUser()">
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input id="username" [(ngModel)]="newUser.username" name="username" required class="form-input" />
+      </div>
+
+      <div class="form-group">
+        <label for="passwordHash">Password</label>
+        <input id="passwordHash" [(ngModel)]="newUser.passwordHash" name="passwordHash" required type="password" class="form-input" />
+      </div>
+
+      <div class="form-group">
+        <label for="role">Role</label>
+        <input id="role" [(ngModel)]="newUser.role" name="role" required class="form-input" />
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input id="email" [(ngModel)]="newUser.email" name="email" required type="email" class="form-input" />
+      </div>
+
+      <div class="form-group">
+        <label for="isActive">Active</label>
+        <input id="isActive" [(ngModel)]="newUser.isActive" name="isActive" type="checkbox" class="form-checkbox" />
+      </div>
+
+      <button type="submit" class="submit-btn">Add User</button>
+    </form>
+  </div>
+
+  <!-- Edit User -->
+  <div *ngIf="editUser" class="user-form">
+    <h3>Edit User</h3>
+    <form (ngSubmit)="onSaveUser()">
+      <div class="form-group">
+        <label for="editUsername">Username</label>
+        <input id="editUsername" [(ngModel)]="editUser.username" name="editUsername" required class="form-input" />
+      </div>
+
+      <div class="form-group">
+        <label for="editPasswordHash">Password</label>
+        <input id="editPasswordHash" [(ngModel)]="editUser.passwordHash" name="editPasswordHash" required type="password" class="form-input" />
+      </div>
+
+      <div class="form-group">
+        <label for="editRole">Role</label>
+        <input id="editRole" [(ngModel)]="editUser.role" name="editRole" required class="form-input" />
+      </div>
+
+      <div class="form-group">
+        <label for="editEmail">Email</label>
+        <input id="editEmail" [(ngModel)]="editUser.email" name="editEmail" required type="email" class="form-input" />
+      </div>
+
+      <div class="form-group">
+        <label for="editIsActive">Active</label>
+        <input id="editIsActive" [(ngModel)]="editUser.isActive" name="editIsActive" type="checkbox" class="form-checkbox" />
+      </div>
+
+      <button type="submit" class="submit-btn">Save Changes</button>
+      <button type="button" (click)="onCancelEdit()" class="cancel-btn">Cancel</button>
+    </form>
+  </div>
+
+  <!-- Display Users List -->
+  <div *ngIf="users.length > 0">
+    <h3>Users List</h3>
+    <table class="user-table">
+      <thead>
+        <tr>
+          <th>User ID</th>
+          <th>Username</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th>Active</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users">
+          <td>{{ user.userId }}</td>
+          <td>{{ user.username }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.role }}</td>
+          <td>{{ user.isActive ? 'Yes' : 'No' }}</td>
+          <td>
+            <button (click)="onEditUser(user)" class="action-btn edit-btn">Edit</button>
+            <button (click)="onDeleteUser(user.userId)" class="action-btn delete-btn">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- No users message -->
+  <div *ngIf="users.length === 0">
+    <h3>No users found!</h3>
+  </div>
+</div>
+
+<style>
+  /* User Container */
+  .user-container {
+    width: 80%;
+    margin: 0 auto;
+    font-family: 'Arial', sans-serif;
+    padding: 20px;
+    background-color: #f4f7fa;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .user-form {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+  }
+
+  .user-form h3 {
+    text-align: center;
+    color: #4CAF50;
+    margin-bottom: 20px;
+  }
+
+  /* Form Inputs */
+  .form-group {
+    margin-bottom: 15px;
+  }
+
+  .form-input, .form-checkbox {
+    width: 100%;
+    padding: 10px;
+    font-size: 1em;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    transition: border 0.3s ease;
+  }
+
+  .form-input:focus, .form-checkbox:focus {
+    border-color: #4CAF50;
+    outline: none;
+  }
+
+  .submit-btn, .cancel-btn {
+    padding: 10px 20px;
+    font-size: 1em;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .submit-btn {
+    background-color: #4CAF50;
+  }
+
+  .submit-btn:hover {
+    background-color: #45a049;
+  }
+
+  .cancel-btn {
+    background-color: #f44336;
+  }
+
+  .cancel-btn:hover {
+    background-color: #e53935;
+  }
+
+  /* Table Styling */
+  .user-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+
+  .user-table th, .user-table td {
+    padding: 12px;
+    text-align: left;
+  }
+
+  .user-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+  }
+
+  .user-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+
+  .user-table tr:hover {
+    background-color: #f1f1f1;
+  }
+
+  /* Action Buttons */
+  .action-btn {
+    padding: 8px 16px;
+    font-size: 0.9em;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .edit-btn {
+    background-color: #4CAF50;
+    color: white;
+  }
+
+  .edit-btn:hover {
+    background-color: #45a049;
+  }
+
+  .delete-btn {
+    background-color: #f44336;
+    color: white;
+  }
+
+  .delete-btn:hover {
+    background-color: #e53935;
+  }
+</style>

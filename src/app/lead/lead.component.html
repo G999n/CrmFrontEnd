@@ -1,0 +1,223 @@
+<div class="lead-container">
+  <h2 class="section-title">Leads</h2>
+
+  <!-- Form to add or edit a lead -->
+  <div class="form-container">
+    <h3 class="form-header">{{ editingLead ? 'Edit Lead' : 'Add a New Lead' }}</h3>
+    <form (ngSubmit)="editingLead ? updateLead() : addLead()" class="lead-form">
+      <div class="form-group">
+        <label for="leadSource" class="form-label">Lead Source</label>
+        <input type="text" id="leadSource" [(ngModel)]="leadToEdit.leadSource" name="leadSource" class="form-input" required>
+      </div>
+
+      <div class="form-group">
+        <label for="name" class="form-label">Name</label>
+        <input type="text" id="name" [(ngModel)]="leadToEdit.name" name="name" class="form-input" required>
+      </div>
+
+      <div class="form-group">
+        <label for="contactDetails" class="form-label">Contact Details</label>
+        <input type="text" id="contactDetails" [(ngModel)]="leadToEdit.contactDetails" name="contactDetails" class="form-input" required>
+      </div>
+
+      <div class="form-group">
+        <label for="leadStatus" class="form-label">Lead Status</label>
+        <input type="text" id="leadStatus" [(ngModel)]="leadToEdit.leadStatus" name="leadStatus" class="form-input" required>
+      </div>
+
+      <div class="form-group">
+        <label for="assignedTo" class="form-label">Assigned To</label>
+        <input type="number" id="assignedTo" [(ngModel)]="leadToEdit.assignedTo" name="assignedTo" class="form-input" required>
+      </div>
+
+      <div class="form-group">
+        <label for="potentialValue" class="form-label">Potential Value</label>
+        <input type="number" id="potentialValue" [(ngModel)]="leadToEdit.potentialValue" name="potentialValue" class="form-input" required>
+      </div>
+
+      <button type="submit" class="submit-btn">{{ editingLead ? 'Update Lead' : 'Add Lead' }}</button>
+    </form>
+  </div>
+
+  <!-- Table displaying all leads -->
+  <div class="table-container">
+    <table class="lead-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Lead Source</th>
+          <th>Name</th>
+          <th>Contact Details</th>
+          <th>Lead Status</th>
+          <th>Assigned To</th>
+          <th>Potential Value</th>
+          <th>Is Converted</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let lead of leads">
+          <td>{{ lead.leadId }}</td>
+          <td>{{ lead.leadSource }}</td>
+          <td>{{ lead.name }}</td>
+          <td>{{ lead.contactDetails }}</td>
+          <td>{{ lead.leadStatus }}</td>
+          <td>{{ lead.assignedTo }}</td>
+          <td>{{ lead.potentialValue | currency }}</td>
+          <td>{{ lead.isConverted ? 'Yes' : 'No' }}</td>
+          <td>
+            <button (click)="editLead(lead.leadId)" class="action-btn edit-btn">Edit</button>
+            <button (click)="deleteLead(lead.leadId)" class="action-btn delete-btn">Delete</button>
+            <button (click)="convertLead(lead.leadId)" class="action-btn convert-btn">Convert</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<style>
+  /* Container Styles */
+  .lead-container {
+    width: 90%;
+    margin: 0 auto;
+    padding: 30px;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: 'Arial', sans-serif;
+  }
+
+  .section-title {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #343a40;
+  }
+
+  /* Form Styles */
+  .form-container {
+    margin-bottom: 30px;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+
+  .form-header {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    color: #007bff;
+  }
+
+  .form-group {
+    margin-bottom: 15px;
+  }
+
+  .form-label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 1rem;
+    color: #495057;
+  }
+
+  .form-input {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    transition: border-color 0.3s ease;
+  }
+
+  .form-input:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+
+  .submit-btn {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    background-color: #007bff;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .submit-btn:hover {
+    background-color: #0056b3;
+  }
+
+  /* Table Styles */
+  .table-container {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+
+  .lead-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .lead-table th,
+  .lead-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #dee2e6;
+  }
+
+  .lead-table th {
+    background-color: #e9ecef;
+    font-weight: bold;
+  }
+
+  .lead-table tr:nth-child(even) {
+    background-color: #f8f9fa;
+  }
+
+  .lead-table tr:hover {
+    background-color: #e9ecef;
+  }
+
+  /* Button Styles */
+  .action-btn {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .edit-btn {
+    background-color: #28a745;
+    color: #ffffff;
+  }
+
+  .edit-btn:hover {
+    background-color: #218838;
+  }
+
+  .delete-btn {
+    background-color: #dc3545;
+    color: #ffffff;
+  }
+
+  .delete-btn:hover {
+    background-color: #c82333;
+  }
+
+  .convert-btn {
+    background-color: #ffc107;
+    color: #ffffff;
+  }
+
+  .convert-btn:hover {
+    background-color: #e0a800;
+  }
+</style>

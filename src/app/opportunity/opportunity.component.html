@@ -1,0 +1,207 @@
+<div class="opportunity-management-container">
+    <h2 class="section-title">Opportunity Management</h2>
+  
+    <div *ngIf="isEditing" class="form-header">
+      <h3>Edit Opportunity</h3>
+    </div>
+    <div *ngIf="!isEditing" class="form-header">
+      <h3>Add New Opportunity</h3>
+    </div>
+  
+    <form (ngSubmit)="isEditing ? updateOpportunity() : addOpportunity()" class="opportunity-form">
+      <div class="form-group">
+        <label for="customerId" class="form-label">Customer ID</label>
+        <input type="number" id="customerId" [(ngModel)]="opportunity.customerId" name="customerId" placeholder="Enter Customer ID" required class="form-input" />
+      </div>
+  
+      <div class="form-group">
+        <label for="accountManagerId" class="form-label">Account Manager ID</label>
+        <input type="number" id="accountManagerId" [(ngModel)]="opportunity.accountManagerId" name="accountManagerId" placeholder="Enter Account Manager ID" required class="form-input" />
+      </div>
+  
+      <div class="form-group">
+        <label for="opportunityValue" class="form-label">Opportunity Value</label>
+        <input type="number" id="opportunityValue" [(ngModel)]="opportunity.opportunityValue" name="opportunityValue" placeholder="Enter Opportunity Value" required class="form-input" />
+      </div>
+  
+      <div class="form-group">
+        <label for="closeDate" class="form-label">Close Date</label>
+        <input type="date" id="closeDate" [(ngModel)]="opportunity.closeDate" name="closeDate" required class="form-input" />
+      </div>
+  
+      <div class="form-group">
+        <label for="stage" class="form-label">Stage</label>
+        <input type="text" id="stage" [(ngModel)]="opportunity.stage" name="stage" placeholder="Enter Stage" required class="form-input" />
+      </div>
+  
+      <button type="submit" class="submit-btn">{{ isEditing ? 'Update' : 'Add' }} Opportunity</button>
+    </form>
+  
+    <div class="opportunity-list-container">
+      <table class="opportunity-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Customer ID</th>
+            <th>Account Manager ID</th>
+            <th>Opportunity Value</th>
+            <th>Close Date</th>
+            <th>Stage</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let opp of opportunities">
+            <td>{{ opp.opportunityId }}</td>
+            <td>{{ opp.customerId }}</td>
+            <td>{{ opp.accountManagerId }}</td>
+            <td>{{ opp.opportunityValue }}</td>
+            <td>{{ opp.closeDate | date }}</td>
+            <td>{{ opp.stage }}</td>
+            <td>
+              <button (click)="editOpportunity(opp.opportunityId)" class="action-btn edit-btn">Edit</button>
+              <button (click)="deleteOpportunity(opp.opportunityId)" class="action-btn delete-btn">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  
+  <style>
+    /* Container */
+    .opportunity-management-container {
+      width: 80%;
+      margin: 0 auto;
+      font-family: 'Arial', sans-serif;
+      padding: 30px;
+      background-color: #f9f9f9;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+  
+    /* Section Title */
+    .section-title {
+      text-align: center;
+      color: #333;
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+  
+    /* Form Header */
+    .form-header {
+      text-align: center;
+      color: #4CAF50;
+      margin-bottom: 20px;
+    }
+  
+    /* Opportunity Form */
+    .opportunity-form {
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      margin-bottom: 30px;
+    }
+  
+    /* Input Fields */
+    .form-group {
+      margin-bottom: 15px;
+    }
+  
+    .form-label {
+      font-size: 1em;
+      color: #333;
+      margin-bottom: 5px;
+      display: block;
+    }
+  
+    .form-input {
+      width: 100%;
+      padding: 12px;
+      font-size: 1em;
+      border-radius: 5px;
+      border: 1px solid #ddd;
+      transition: border 0.3s ease;
+    }
+  
+    .form-input:focus {
+      border-color: #4CAF50;
+      outline: none;
+    }
+  
+    /* Submit Button */
+    .submit-btn {
+      width: 100%;
+      padding: 12px;
+      font-size: 1em;
+      color: white;
+      background-color: #4CAF50;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+  
+    .submit-btn:hover {
+      background-color: #45a049;
+    }
+  
+    /* Opportunity Table */
+    .opportunity-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      background-color: white;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+  
+    .opportunity-table th, .opportunity-table td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+  
+    .opportunity-table th {
+      background-color: #f2f2f2;
+      font-weight: bold;
+    }
+  
+    .opportunity-table tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+  
+    .opportunity-table tr:hover {
+      background-color: #f1f1f1;
+    }
+  
+    /* Action Buttons */
+    .action-btn {
+      padding: 8px 16px;
+      font-size: 0.9em;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+  
+    .edit-btn {
+      background-color: #4CAF50;
+      color: white;
+    }
+  
+    .edit-btn:hover {
+      background-color: #45a049;
+    }
+  
+    .delete-btn {
+      background-color: #f44336;
+      color: white;
+    }
+  
+    .delete-btn:hover {
+      background-color: #e53935;
+    }
+  </style>
+  

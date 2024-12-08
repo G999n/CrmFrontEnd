@@ -1,0 +1,203 @@
+<div class="support-ticket-container">
+    <h2 class="section-title">Support Tickets</h2>
+  
+    <div class="ticket-form-container">
+      <h3 *ngIf="!isEdit" class="form-title">Add New Ticket</h3>
+      <h3 *ngIf="isEdit" class="form-title">Edit Ticket</h3>
+  
+      <form (ngSubmit)="isEdit ? updateTicket() : addTicket()" class="ticket-form">
+        <div class="form-group">
+          <label for="customerId" class="form-label">Customer ID</label>
+          <input type="number" [(ngModel)]="ticket.customerId" name="customerId" placeholder="Enter Customer ID" required class="form-input" />
+        </div>
+  
+        <div class="form-group">
+          <label for="issueDescription" class="form-label">Issue Description</label>
+          <input type="text" [(ngModel)]="ticket.issueDescription" name="issueDescription" placeholder="Describe the issue" required class="form-input" />
+        </div>
+  
+        <div class="form-group">
+          <label for="assignedTo" class="form-label">Assigned To</label>
+          <input type="number" [(ngModel)]="ticket.assignedTo" name="assignedTo" placeholder="Enter user ID" required class="form-input" />
+        </div>
+  
+        <div class="form-group">
+          <label for="ticketStatus" class="form-label">Ticket Status</label>
+          <input type="text" [(ngModel)]="ticket.ticketStatus" name="ticketStatus" placeholder="Enter Ticket Status" required class="form-input" />
+        </div>
+  
+        <button type="submit" class="submit-btn">{{ isEdit ? 'Update' : 'Add' }} Ticket</button>
+      </form>
+    </div>
+  
+    <div class="ticket-list-container">
+      <table class="ticket-table">
+        <thead>
+          <tr>
+            <th>Ticket ID</th>
+            <th>Customer ID</th>
+            <th>Issue Description</th>
+            <th>Assigned To</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let ticket of tickets">
+            <td>{{ ticket.ticketId }}</td>
+            <td>{{ ticket.customerId }}</td>
+            <td>{{ ticket.issueDescription }}</td>
+            <td>{{ ticket.assignedTo }}</td>
+            <td>{{ ticket.ticketStatus }}</td>
+            <td>
+              <button (click)="editTicket(ticket.ticketId)" class="action-btn edit-btn">Edit</button>
+              <button (click)="deleteTicket(ticket.ticketId)" class="action-btn delete-btn">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  
+  <style>
+    /* Container */
+    .support-ticket-container {
+      width: 80%;
+      margin: 0 auto;
+      font-family: 'Arial', sans-serif;
+      padding: 30px;
+      background-color: #f9f9f9;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+  
+    /* Section Title */
+    .section-title {
+      text-align: center;
+      color: #333;
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+  
+    /* Ticket Form Container */
+    .ticket-form-container {
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      margin-bottom: 30px;
+    }
+  
+    /* Form Title */
+    .form-title {
+      text-align: center;
+      color: #4CAF50;
+      margin-bottom: 20px;
+    }
+  
+    /* Input Fields */
+    .form-group {
+      margin-bottom: 15px;
+    }
+  
+    .form-label {
+      font-size: 1em;
+      color: #333;
+      margin-bottom: 5px;
+      display: block;
+    }
+  
+    .form-input {
+      width: 100%;
+      padding: 12px;
+      font-size: 1em;
+      border-radius: 5px;
+      border: 1px solid #ddd;
+      transition: border 0.3s ease;
+    }
+  
+    .form-input:focus {
+      border-color: #4CAF50;
+      outline: none;
+    }
+  
+    /* Submit Button */
+    .submit-btn {
+      width: 100%;
+      padding: 12px;
+      font-size: 1em;
+      color: white;
+      background-color: #4CAF50;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+  
+    .submit-btn:hover {
+      background-color: #45a049;
+    }
+  
+    /* Ticket List */
+    .ticket-list-container {
+      margin-top: 30px;
+    }
+  
+    /* Table */
+    .ticket-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      background-color: white;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+  
+    .ticket-table th, .ticket-table td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+  
+    .ticket-table th {
+      background-color: #f2f2f2;
+      font-weight: bold;
+    }
+  
+    .ticket-table tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+  
+    .ticket-table tr:hover {
+      background-color: #f1f1f1;
+    }
+  
+    /* Action Buttons */
+    .action-btn {
+      padding: 8px 16px;
+      font-size: 0.9em;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+  
+    .edit-btn {
+      background-color: #4CAF50;
+      color: white;
+    }
+  
+    .edit-btn:hover {
+      background-color: #45a049;
+    }
+  
+    .delete-btn {
+      background-color: #f44336;
+      color: white;
+    }
+  
+    .delete-btn:hover {
+      background-color: #e53935;
+    }
+  </style>
+  

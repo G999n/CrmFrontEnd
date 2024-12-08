@@ -1,0 +1,65 @@
+<div class="landing-page">
+    <header class="header">
+      <h1>Welcome to Your Customer Relationship Management Platform</h1>
+      <p class="sub-header">
+        Streamline your business operations and enhance customer engagement with our all-in-one CRM solution. 
+        From tracking communication to managing leads and campaigns, everything is just a click away.
+      </p>
+    </header>
+  
+    <section class="features-section">
+      <h2>Explore CRM Features</h2>
+      <p>
+        Our CRM system offers an array of tools to help you achieve your business goals. Select any feature to get started:
+      </p>
+      <div class="features-grid">
+        <div class="feature-card">
+          <h3>Communication History</h3>
+          <p>Track all interactions with customers across multiple channels and never lose important context.</p>
+          <button (click)="navigateTo('/communication-history')">View Details</button>
+        </div>
+        <div class="feature-card">
+          <h3>Customers</h3>
+          <p>Manage customer information, track profiles, and analyze engagement trends effectively.</p>
+          <button (click)="navigateTo('/customers')">Manage Customers</button>
+        </div>
+        <div class="feature-card">
+          <h3>Leads</h3>
+          <p>Organize and nurture your leads to turn potential customers into loyal clients.</p>
+          <button (click)="navigateTo('/leads')">View Leads</button>
+        </div>
+        <div class="feature-card">
+          <h3>Marketing Campaigns</h3>
+          <p>Plan, execute, and monitor impactful marketing campaigns to reach your audience.</p>
+          <button (click)="navigateTo('/marketing-campaigns')">Explore Campaigns</button>
+        </div>
+        <div class="feature-card">
+          <h3>Opportunities</h3>
+          <p>Identify and capitalize on opportunities to grow your business and close deals faster.</p>
+          <button (click)="navigateTo('/opportunities')">Track Opportunities</button>
+        </div>
+        <div class="feature-card">
+          <h3>Support Tickets</h3>
+          <p>Resolve customer issues quickly and efficiently with a dedicated ticketing system.</p>
+          <button (click)="navigateTo('/support-tickets')">Handle Tickets</button>
+        </div>
+        <div class="feature-card">
+          <h3>Tasks</h3>
+          <p>Keep your team organized and productive with task management tools.</p>
+          <button (click)="navigateTo('/tasks')">Manage Tasks</button>
+        </div>
+        <div class="feature-card">
+          <h3>Users</h3>
+          <p>Onboard and manage your team members with role-based access controls and permissions.</p>
+          <button (click)="navigateTo('/users')">Manage Users</button>
+        </div>
+      </div>
+    </section>
+  
+    <footer class="footer">
+      <p>
+        Ready to take your customer relationships to the next level? Start exploring the tools above, or reach out to our team for guidance!
+      </p>
+    </footer>
+  </div>
+  

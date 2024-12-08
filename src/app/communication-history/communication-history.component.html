@@ -1,0 +1,249 @@
+<div class="container">
+  <h1 class="section-header">Communication History</h1>
+
+  <!-- Form to add or edit communication history -->
+  <div class="form-container">
+    <h3 class="form-header">{{ isEditing ? 'Edit' : 'Create' }} Communication History</h3>
+    <form (ngSubmit)="onSubmit()" #communicationHistoryForm="ngForm" class="communication-form">
+      <div class="form-group">
+        <label for="customerId" class="form-label">Customer ID</label>
+        <input
+          type="number"
+          id="customerId"
+          [(ngModel)]="newCommunication.customerId"
+          name="customerId"
+          class="form-input"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="interactionType" class="form-label">Interaction Type</label>
+        <input
+          type="text"
+          id="interactionType"
+          [(ngModel)]="newCommunication.interactionType"
+          name="interactionType"
+          class="form-input"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="date" class="form-label">Date</label>
+        <input
+          type="datetime-local"
+          id="date"
+          [(ngModel)]="newCommunication.date"
+          name="date"
+          class="form-input"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="notes" class="form-label">Notes</label>
+        <textarea
+          id="notes"
+          [(ngModel)]="newCommunication.notes"
+          name="notes"
+          class="form-textarea"
+          required
+        ></textarea>
+      </div>
+
+      <div class="form-group checkbox-group">
+        <label for="followUpRequired" class="form-label">Follow-Up Required</label>
+        <input
+          type="checkbox"
+          id="followUpRequired"
+          [(ngModel)]="newCommunication.followUpRequired"
+          name="followUpRequired"
+          class="form-checkbox"
+        />
+      </div>
+
+      <button type="submit" class="btn submit-btn">
+        {{ isEditing ? 'Update' : 'Create' }} Communication
+      </button>
+    </form>
+  </div>
+
+  <!-- Communication History Table -->
+  <div class="table-container" *ngIf="communicationHistory.length > 0">
+    <h3 class="table-header">Communication History Records</h3>
+    <table class="communication-table">
+      <thead>
+        <tr>
+          <th>Interaction ID</th>
+          <th>Customer ID</th>
+          <th>Interaction Type</th>
+          <th>Date</th>
+          <th>Notes</th>
+          <th>Follow-Up</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let history of communicationHistory">
+          <td>{{ history.interactionId }}</td>
+          <td>{{ history.customerId }}</td>
+          <td>{{ history.interactionType }}</td>
+          <td>{{ history.date | date: 'short' }}</td>
+          <td>{{ history.notes }}</td>
+          <td>{{ history.followUpRequired ? 'Yes' : 'No' }}</td>
+          <td>
+            <button (click)="onEdit(history)" class="btn action-btn edit-btn">Edit</button>
+            <button (click)="onDelete(history.interactionId)" class="btn action-btn delete-btn">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<style>
+  /* Container Styling */
+  .container {
+    margin: 0 auto;
+    padding: 20px;
+    max-width: 80%;
+    background: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+  }
+
+  .section-header {
+    font-size: 2.5rem;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  /* Form Styling */
+  .form-container {
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+  }
+
+  .form-header {
+    font-size: 1.5rem;
+    color: #007bff;
+    margin-bottom: 15px;
+  }
+
+  .form-group {
+    margin-bottom: 15px;
+  }
+
+  .form-label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+  }
+
+  .form-input,
+  .form-textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+
+  .form-textarea {
+    resize: vertical;
+  }
+
+  .checkbox-group {
+    display: flex;
+    align-items: center;
+  }
+
+  .form-checkbox {
+    margin-left: 10px;
+    transform: scale(1.2);
+  }
+
+  .submit-btn {
+    width: 100%;
+    background: #007bff;
+    color: #fff;
+    padding: 12px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+
+  .submit-btn:hover {
+    background: #0056b3;
+  }
+
+  /* Table Styling */
+  .table-container {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  }
+
+  .table-header {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    color: #333;
+  }
+
+  .communication-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .communication-table th,
+  .communication-table td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+  }
+
+  .communication-table th {
+    background: #f4f4f4;
+    font-weight: bold;
+  }
+
+  .communication-table tr:nth-child(even) {
+    background: #f9f9f9;
+  }
+
+  .action-btn {
+    padding: 8px 10px;
+    font-size: 0.9rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .edit-btn {
+    background: #ffc107;
+    color: #fff;
+  }
+
+  .edit-btn:hover {
+    background: #e0a800;
+  }
+
+  .delete-btn {
+    background: #dc3545;
+    color: #fff;
+  }
+
+  .delete-btn:hover {
+    background: #c82333;
+  }
+</style>
