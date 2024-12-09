@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User } from '../models/User'; 
+import { HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
@@ -12,22 +13,43 @@ export class UserService {
   constructor(private http: HttpClient) {}
 
   getAllUsers(): Observable<User[]> {
-    return this.http.get<User[]>(this.baseUrl);
+    const authToken = JSON.parse(localStorage.getItem('authToken') || '{}').token;
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${authToken}`
+    });
+
+    return this.http.get<User[]>(this.baseUrl, {headers});
   }
 
   addUser(userData: User): Observable<User> {
-    return this.http.post<User>(`${this.baseUrl}`, userData);
+    const authToken = JSON.parse(localStorage.getItem('authToken') || '{}').token;
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${authToken}`
+    });
+    return this.http.post<User>(`${this.baseUrl}`, userData, {headers});
   }
 
   getUserById(id: number): Observable<User> {
-    return this.http.get<User>(`${this.baseUrl}/${id}`);
+    const authToken = JSON.parse(localStorage.getItem('authToken') || '{}').token;
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${authToken}`
+    });
+    return this.http.get<User>(`${this.baseUrl}/${id}`, {headers});
   }
 
   updateUser(id: number, userData: User): Observable<User> {
-    return this.http.put<User>(`${this.baseUrl}/${id}`, userData);
+    const authToken = JSON.parse(localStorage.getItem('authToken') || '{}').token;
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${authToken}`
+    });
+    return this.http.put<User>(`${this.baseUrl}/${id}`, userData, {headers});
   }
 
   deleteUser(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.baseUrl}/${id}`);
+    const authToken = JSON.parse(localStorage.getItem('authToken') || '{}').token;
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${authToken}`
+    });
+    return this.http.delete<void>(`${this.baseUrl}/${id}`, {headers});
   }
 }

@@ -54,7 +54,7 @@
             <td>{{ campaign.startDate | date }}</td>
             <td>{{ campaign.endDate | date }}</td>
             <td>{{ campaign.targetSegment }}</td>
-            <td>{{ campaign.budget | currency }}</td>
+            <td>{{ campaign.budget }}</td>
             <td>
               <button (click)="editCampaign(campaign.campaignId)" class="action-btn edit-btn">Edit</button>
               <button (click)="deleteCampaign(campaign.campaignId)" class="action-btn delete-btn">Delete</button>

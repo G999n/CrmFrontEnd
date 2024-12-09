@@ -63,7 +63,7 @@
           <td>{{ lead.contactDetails }}</td>
           <td>{{ lead.leadStatus }}</td>
           <td>{{ lead.assignedTo }}</td>
-          <td>{{ lead.potentialValue | currency }}</td>
+          <td>{{ lead.potentialValue }}</td>
           <td>{{ lead.isConverted ? 'Yes' : 'No' }}</td>
           <td>
             <button (click)="editLead(lead.leadId)" class="action-btn edit-btn">Edit</button>

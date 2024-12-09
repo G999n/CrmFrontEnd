@@ -46,8 +46,15 @@ export class CustomerComponent {
         this.getAllCustomers();
         this.newCustomer = { customerId: 0, name: '', company: '', industry: '', contactDetails: '', accountStatus: '', lastContactDate: new Date() };
       },
-      () => {
-        this.showAlert('Failed to add customer');
+      (error) => {
+        console.log(error);
+        if (error.status === 401) {
+          alert('Unauthorized: Please log in!');
+        } else if (error.status === 403) {
+          alert('Forbidden: You do not have permission to perform this action!');
+        } else {
+          alert('An unexpected error occurred. Please try again.');
+        }
       }
     );
   }

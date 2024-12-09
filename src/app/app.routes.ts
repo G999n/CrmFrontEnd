@@ -8,15 +8,20 @@ import { OpportunityComponent } from './opportunity/opportunity.component';
 import { SupportTicketComponent } from './support-ticket/support-ticket.component';
 import { TaskComponent } from './task/task.component';
 import { HomeComponent } from './home/home.component';
+import { AuthGuard} from './auth.guard';
+import { LoginComponent } from './login/login.component';
 
 export const routes: Routes = [
-    { path: 'communication-history', component: CommunicationHistoryComponent },
-  { path: 'customers', component: CustomerComponent },
-  { path: 'leads', component: LeadComponent },
-  { path: 'marketing-campaigns', component: MarketingCampaignComponent },
-  { path: 'opportunities', component: OpportunityComponent },
-  { path: 'support-tickets', component: SupportTicketComponent },
-  { path: 'tasks', component: TaskComponent },
-  { path: 'users', component: UserComponent },
-  { path: '', component: HomeComponent}
+  { path: 'login', component: LoginComponent},
+  { path: 'communication-history', component: CommunicationHistoryComponent, canActivate: [AuthGuard] },
+  { path: 'customers', component: CustomerComponent, canActivate: [AuthGuard] },
+  { path: 'leads', component: LeadComponent, canActivate: [AuthGuard] },
+  { path: 'marketing-campaigns', component: MarketingCampaignComponent, canActivate: [AuthGuard] },
+  { path: 'opportunities', component: OpportunityComponent, canActivate: [AuthGuard] },
+  { path: 'support-tickets', component: SupportTicketComponent, canActivate: [AuthGuard] },
+  { path: 'tasks', component: TaskComponent, canActivate: [AuthGuard] },
+  { path: 'users', component: UserComponent, canActivate: [AuthGuard] },
+  { path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
+  { path: '', redirectTo: '/login', pathMatch: "full"},
+  { path: '*', redirectTo: '/login'}
 ];

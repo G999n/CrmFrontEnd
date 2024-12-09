@@ -67,6 +67,13 @@ export class UserComponent {
       },
       (error) => {
         console.error('Error fetching users', error);
+        if (error.status === 401) {
+          alert('Unauthorized: Please log in!');
+        } else if (error.status === 403) {
+          alert('Forbidden: You do not have permission to perform this action!');
+        } else {
+          alert('An unexpected error occurred. Please try again.');
+        }
       }
     );
   }
@@ -93,6 +100,13 @@ export class UserComponent {
         },
         (error) => {
           console.error('Error adding user:', error);
+          if (error.status === 401) {
+            alert('Unauthorized: Please log in!');
+          } else if (error.status === 403) {
+            alert('Forbidden: You do not have permission to perform this action!');
+          } else {
+            alert('An unexpected error occurred. Please try again.');
+          }
         }
       );
     } else {
@@ -114,6 +128,13 @@ export class UserComponent {
         },
         (error) => {
           console.error('Error updating user:', error);
+          if (error.status === 401) {
+            alert('Unauthorized: Please log in!');
+          } else if (error.status === 403) {
+            alert('Forbidden: You do not have permission to perform this action!');
+          } else {
+            alert('An unexpected error occurred. Please try again.');
+          }
         }
       );
     }
@@ -127,6 +148,13 @@ export class UserComponent {
       },
       (error) => {
         console.error('Error deleting user:', error);
+        if (error.status === 401) {
+          alert('Unauthorized: Please log in!');
+        } else if (error.status === 403) {
+          alert('Forbidden: You do not have permission to perform this action!');
+        } else {
+          alert('An unexpected error occurred. Please try again.');
+        }
       }
     );
   }

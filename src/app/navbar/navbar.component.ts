@@ -14,4 +14,9 @@ export class NavbarComponent {
   navigateTo(route: string): void {
     this.router.navigate([route]);
   }
+
+  logout(): void {
+    localStorage.removeItem('authToken');
+    this.router.navigate(['/login']);
+  }
 }
