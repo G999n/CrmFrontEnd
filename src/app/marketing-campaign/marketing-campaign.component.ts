@@ -34,8 +34,15 @@ export class MarketingCampaignComponent {
       (data) => {
         this.campaigns = data;
       },
-      () => {
-        alert('Failed to load campaigns!');
+      (error) => {
+        console.log(error);
+        if (error.status === 401) {
+          alert('Unauthorized: Please log in!');
+        } else if (error.status === 403) {
+          alert('Forbidden: You do not have permission to perform this action!');
+        } else {
+          alert('Error: Failed to Get Campaigns!');
+        }
       }
     );
   }
@@ -46,8 +53,15 @@ export class MarketingCampaignComponent {
         this.campaigns.push(data);
         this.resetForm();
       },
-      () => {
-        alert('Failed to add campaign!');
+      (error) => {
+        console.log(error);
+        if (error.status === 401) {
+          alert('Unauthorized: Please log in!');
+        } else if (error.status === 403) {
+          alert('Forbidden: You do not have permission to perform this action!');
+        } else {
+          alert('Error: Failed to add campaign');
+        }
       }
     );
   }
@@ -71,8 +85,15 @@ export class MarketingCampaignComponent {
           this.resetForm();
           this.isEdit = false;
         },
-        () => {
-          alert('Failed to update campaign!');
+        (error) => {
+          console.log(error);
+          if (error.status === 401) {
+            alert('Unauthorized: Please log in!');
+          } else if (error.status === 403) {
+            alert('Forbidden: You do not have permission to perform this action!');
+          } else {
+            alert('Error failed to update campaign.');
+          }
         }
       );
   }
@@ -84,8 +105,15 @@ export class MarketingCampaignComponent {
           (campaign) => campaign.campaignId !== id
         );
       },
-      () => {
-        alert('Failed to delete campaign!');
+      (error) => {
+        console.log(error);
+        if (error.status === 401) {
+          alert('Unauthorized: Please log in!');
+        } else if (error.status === 403) {
+          alert('Forbidden: You do not have permission to perform this action!');
+        } else {
+          alert('Error! Failed to delete campaign.');
+        }
       }
     );
   }

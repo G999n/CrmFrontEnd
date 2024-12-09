@@ -35,7 +35,14 @@ export class CustomerComponent {
         this.customers = data;
       },
       (error) => {
-        this.showAlert('Failed to load customers');
+        console.log(error);
+        if (error.status === 401) {
+          alert('Unauthorized: Please log in!');
+        } else if (error.status === 403) {
+          alert('Forbidden: You do not have permission to perform this action!');
+        } else {
+          alert('Error: Failed to load customers');
+        }
       }
     );
   }
@@ -53,7 +60,7 @@ export class CustomerComponent {
         } else if (error.status === 403) {
           alert('Forbidden: You do not have permission to perform this action!');
         } else {
-          alert('An unexpected error occurred. Please try again.');
+          alert('Error: Failed to add customer');
         }
       }
     );
@@ -64,8 +71,15 @@ export class CustomerComponent {
       () => {
         this.getAllCustomers();
       },
-      () => {
-        this.showAlert('Failed to update customer');
+      (error) => {
+        console.log(error);
+        if (error.status === 401) {
+          alert('Unauthorized: Please log in!');
+        } else if (error.status === 403) {
+          alert('Forbidden: You do not have permission to perform this action!');
+        } else {
+          alert('Error: Failed to update customer');
+        }
       }
     );
   }
@@ -75,8 +89,15 @@ export class CustomerComponent {
       () => {
         this.getAllCustomers();
       },
-      () => {
-        this.showAlert('Failed to delete customer');
+      (error) => {
+        console.log(error);
+        if (error.status === 401) {
+          alert('Unauthorized: Please log in!');
+        } else if (error.status === 403) {
+          alert('Forbidden: You do not have permission to perform this action!');
+        } else {
+          alert('Error: Failed to delete customer');
+        }
       }
     );
   }

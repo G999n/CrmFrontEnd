@@ -40,7 +40,14 @@ export class LeadComponent {
         this.leads = data;
       },
       (error) => {
-        alert('Failed to load leads.');
+        console.log(error);
+        if (error.status === 401) {
+          alert('Unauthorized: Please log in!');
+        } else if (error.status === 403) {
+          alert('Forbidden: You do not have permission to perform this action!');
+        } else {
+          alert('Error: Failed to load Leads');
+        }
       }
     );
   }
@@ -53,7 +60,14 @@ export class LeadComponent {
         this.resetForm(); // Reset the form after adding
       },
       (error) => {
-        alert('Failed to add the lead.');
+        console.log(error);
+        if (error.status === 401) {
+          alert('Unauthorized: Please log in!');
+        } else if (error.status === 403) {
+          alert('Forbidden: You do not have permission to perform this action!');
+        } else {
+          alert('Error: Failed to add Lead');
+        }
       }
     );
   }
@@ -65,7 +79,14 @@ export class LeadComponent {
         this.getLeads(); // Refresh the list
       },
       (error) => {
-        alert('Failed to delete the lead.');
+        console.log(error);
+        if (error.status === 401) {
+          alert('Unauthorized: Please log in!');
+        } else if (error.status === 403) {
+          alert('Forbidden: You do not have permission to perform this action!');
+        } else {
+          alert('Error: Failed to Delete Lead');
+        }
       }
     );
   }
@@ -77,7 +98,14 @@ export class LeadComponent {
         this.getLeads(); // Refresh the list
       },
       (error) => {
-        alert('Failed to convert the lead.');
+        console.log(error);
+        if (error.status === 401) {
+          alert('Unauthorized: Please log in!');
+        } else if (error.status === 403) {
+          alert('Forbidden: You do not have permission to perform this action!');
+        } else {
+          alert('Error: Failed to convert lead');
+        }
       }
     );
   }
@@ -90,7 +118,14 @@ export class LeadComponent {
         this.leadToEdit = { ...this.editingLead }; // Assign editingLead to leadToEdit
       },
       (error) => {
-        alert('Failed to fetch lead details for editing.');
+        console.log(error);
+        if (error.status === 401) {
+          alert('Unauthorized: Please log in!');
+        } else if (error.status === 403) {
+          alert('Forbidden: You do not have permission to perform this action!');
+        } else {
+          alert('Error: Failed to Edit Lead');
+        }
       }
     );
   }
@@ -104,7 +139,13 @@ export class LeadComponent {
           this.resetForm(); // Reset form after update
         },
         (error) => {
-          alert('Failed to update the lead.');
+          if (error.status === 401) {
+            alert('Unauthorized: Please log in!');
+          } else if (error.status === 403) {
+            alert('Forbidden: You do not have permission to perform this action!');
+          } else {
+            alert('Error: Failed to Update Lead');
+          }
         }
       );
     }

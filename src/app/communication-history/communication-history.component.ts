@@ -36,8 +36,15 @@ export class CommunicationHistoryComponent {
       data => {
         this.communicationHistory = data;
       },
-      error => {
-        console.error('Error fetching communication history', error);
+      (error) => {
+        console.log(error);
+        if (error.status === 401) {
+          alert('Unauthorized: Please log in!');
+        } else if (error.status === 403) {
+          alert('Forbidden: You do not have permission to perform this action!');
+        } else {
+          alert('Error: Failed to load communication history');
+        }
       }
     );
   }
@@ -61,8 +68,15 @@ export class CommunicationHistoryComponent {
         this.getAllCommunicationHistory(); // Refresh the list
         this.resetForm();
       },
-      error => {
-        console.error('Error creating communication history', error);
+      (error) => {
+        console.log(error);
+        if (error.status === 401) {
+          alert('Unauthorized: Please log in!');
+        } else if (error.status === 403) {
+          alert('Forbidden: You do not have permission to perform this action!');
+        } else {
+          alert('Error: Failed to add communication history');
+        }
       }
     );
   }
@@ -74,8 +88,15 @@ export class CommunicationHistoryComponent {
         this.getAllCommunicationHistory(); // Refresh the list
         this.resetForm();
       },
-      error => {
-        console.error('Error updating communication history', error);
+      (error) => {
+        console.log(error);
+        if (error.status === 401) {
+          alert('Unauthorized: Please log in!');
+        } else if (error.status === 403) {
+          alert('Forbidden: You do not have permission to perform this action!');
+        } else {
+          alert('Error: Failed to update communication history');
+        }
       }
     );
   }
@@ -93,8 +114,15 @@ export class CommunicationHistoryComponent {
       () => {
         this.getAllCommunicationHistory(); // Refresh the list
       },
-      error => {
-        console.error('Error deleting communication history', error);
+      (error) => {
+        console.log(error);
+        if (error.status === 401) {
+          alert('Unauthorized: Please log in!');
+        } else if (error.status === 403) {
+          alert('Forbidden: You do not have permission to perform this action!');
+        } else {
+          alert('Error: Failed to delete communication history');
+        }
       }
     );
   }

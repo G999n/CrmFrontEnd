@@ -14,7 +14,11 @@ export class CommunicationHistoryService {
 
   // Get all communication history
   getAllCommunicationHistory(): Observable<CommunicationHistory[]> {
-    return this.http.get<CommunicationHistory[]>(this.apiUrl);
+    const authToken = JSON.parse(localStorage.getItem('authToken') || '{}').token;
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${authToken}`
+    });
+    return this.http.get<CommunicationHistory[]>(this.apiUrl, { headers });
   }
 
   // Create a new communication history record
@@ -24,7 +28,11 @@ export class CommunicationHistoryService {
 
   // Get a communication history record by ID
   getCommunicationHistoryById(id: number): Observable<CommunicationHistory> {
-    return this.http.get<CommunicationHistory>(`${this.apiUrl}/${id}`);
+    const authToken = JSON.parse(localStorage.getItem('authToken') || '{}').token;
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${authToken}`
+    });
+    return this.http.get<CommunicationHistory>(`${this.apiUrl}/${id}`, { headers });
   }
 
   // Update a communication history record
@@ -34,12 +42,18 @@ export class CommunicationHistoryService {
 
   // Delete a communication history record by ID
   deleteCommunicationHistory(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+    const authToken = JSON.parse(localStorage.getItem('authToken') || '{}').token;
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${authToken}`
+    });
+    return this.http.delete<void>(`${this.apiUrl}/${id}`, { headers });
   }
 
   // Helper method to get HTTP options with headers (if needed)
   private getHttpOptions() {
+    const authToken = JSON.parse(localStorage.getItem('authToken') || '{}').token;
     const headers = new HttpHeaders({
+      Authorization: `Bearer ${authToken}`,
       'Content-Type': 'application/json'
     });
     return { headers };

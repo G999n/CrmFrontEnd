@@ -10,44 +10,49 @@ import { of } from 'rxjs';
 })
 export class AuthService {
 
-  private loginUrl = 'https://localhost:7178/api/Login/login'; // Backend API URL
+  private loginUrl = 'https://localhost:7178/api/Login/login'; 
 
   constructor(private http: HttpClient, private router: Router) {}
 
   login(username: string, password: string) {
-    // Prepare the login payload
     const loginPayload = { username, password };
+    localStorage.setItem('username', username);
+    localStorage.setItem('password', password);
 
     return this.http.post<any>(this.loginUrl, loginPayload).pipe(
       catchError((error) => {
         if (error.status === 401) {
-          // Handle Unauthorized errors (Invalid credentials or Token Expiry)
           const errorMessage = error.error?.message || 'Login Failed';
           alert(errorMessage);
           this.router.navigate(['/login']);
         }
-        return of(null); // Return an observable with null value to stop further processing
+        return of(null);
       })
     ).subscribe(response => {
       if (response && response.token) {
-        // Store the token in localStorage as a JSON object
         const authToken = { token: response.token };
         localStorage.setItem('authToken', JSON.stringify(authToken));
-        // Optionally, navigate to the dashboard or another page after successful login
+
+        //setting role also in localStorage
+        const payload = response.token.split('.')[1];
+        const decodedPayload = JSON.parse(atob(payload));
+        localStorage.setItem('role', decodedPayload.role);
+
         this.router.navigate(['/home']);
       }
     });
   }
 
-  // A helper method to check if the user is logged in
   isLoggedIn(): boolean {
     const authToken = localStorage.getItem('authToken');
     return authToken !== null;
   }
 
-  // A helper method to log out the user
   logout() {
     localStorage.removeItem('authToken');
+    localStorage.removeItem('role');
+    localStorage.removeItem('username');
+    localStorage.removeItem('password');
     this.router.navigate(['/login']);
   }
 }

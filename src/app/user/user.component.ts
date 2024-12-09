@@ -72,7 +72,7 @@ export class UserComponent {
         } else if (error.status === 403) {
           alert('Forbidden: You do not have permission to perform this action!');
         } else {
-          alert('An unexpected error occurred. Please try again.');
+          alert('Error: Failed to Load Users');
         }
       }
     );
@@ -105,7 +105,7 @@ export class UserComponent {
           } else if (error.status === 403) {
             alert('Forbidden: You do not have permission to perform this action!');
           } else {
-            alert('An unexpected error occurred. Please try again.');
+            alert('Error: Failed to Add User');
           }
         }
       );
@@ -133,7 +133,7 @@ export class UserComponent {
           } else if (error.status === 403) {
             alert('Forbidden: You do not have permission to perform this action!');
           } else {
-            alert('An unexpected error occurred. Please try again.');
+            alert('Error: Failed to update User');
           }
         }
       );
@@ -153,7 +153,7 @@ export class UserComponent {
         } else if (error.status === 403) {
           alert('Forbidden: You do not have permission to perform this action!');
         } else {
-          alert('An unexpected error occurred. Please try again.');
+          alert('Error: Failed to Delete User');
         }
       }
     );

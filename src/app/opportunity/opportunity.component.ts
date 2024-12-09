@@ -25,7 +25,16 @@ export class OpportunityComponent {
   loadOpportunities() {
     this.opportunityService.getAll().subscribe({
       next: (data) => this.opportunities = data,
-      error: () => alert('Failed to load opportunities')
+      error: (error) => {
+        console.log(error);
+        if (error.status === 401) {
+          alert('Unauthorized: Please log in!');
+        } else if (error.status === 403) {
+          alert('Forbidden: You do not have permission to perform this action!');
+        } else {
+          alert('Error: Failed to Load Opportunities');
+        }
+      }
     });
   }
 
@@ -35,7 +44,16 @@ export class OpportunityComponent {
         this.loadOpportunities();
         this.opportunity = { opportunityId: 0, customerId: 0, accountManagerId: 0, opportunityValue: 0, closeDate: new Date(), stage: '' };
       },
-      error: () => alert('Failed to add opportunity')
+      error: (error) => {
+        console.log(error);
+        if (error.status === 401) {
+          alert('Unauthorized: Please log in!');
+        } else if (error.status === 403) {
+          alert('Forbidden: You do not have permission to perform this action!');
+        } else {
+          alert('Error: Failed to Add Opportunity');
+        }
+      }
     });
   }
 
@@ -45,7 +63,16 @@ export class OpportunityComponent {
         this.opportunity = data;
         this.isEditing = true;
       },
-      error: () => alert('Failed to load opportunity for editing')
+      error: (error) => {
+        console.log(error);
+        if (error.status === 401) {
+          alert('Unauthorized: Please log in!');
+        } else if (error.status === 403) {
+          alert('Forbidden: You do not have permission to perform this action!');
+        } else {
+          alert('Error: Failed to Edit Opportunity');
+        }
+      }
     });
   }
 
@@ -56,14 +83,32 @@ export class OpportunityComponent {
         this.isEditing = false;
         this.opportunity = { opportunityId: 0, customerId: 0, accountManagerId: 0, opportunityValue: 0, closeDate: new Date(), stage: '' };
       },
-      error: () => alert('Failed to update opportunity')
+      error: (error) => {
+        console.log(error);
+        if (error.status === 401) {
+          alert('Unauthorized: Please log in!');
+        } else if (error.status === 403) {
+          alert('Forbidden: You do not have permission to perform this action!');
+        } else {
+          alert('Error: Failed to Update Opportunity');
+        }
+      }
     });
   }
 
   deleteOpportunity(id: number) {
     this.opportunityService.delete(id).subscribe({
       next: () => this.loadOpportunities(),
-      error: () => alert('Failed to delete opportunity')
+      error: (error) => {
+        console.log(error);
+        if (error.status === 401) {
+          alert('Unauthorized: Please log in!');
+        } else if (error.status === 403) {
+          alert('Forbidden: You do not have permission to perform this action!');
+        } else {
+          alert('Error: Failed to Delete Opportunity');
+        }
+      }
     });
   }
 }

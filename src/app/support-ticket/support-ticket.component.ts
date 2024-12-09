@@ -25,7 +25,15 @@ export class SupportTicketComponent {
   loadTickets(): void {
     this.ticketService.getAllTickets().subscribe(
       (data) => { this.tickets = data; },
-      (error) => { alert('Failed to load tickets!'); }
+      (error) => { 
+        console.log(error);
+        if (error.status === 401) {
+          alert('Unauthorized: Please log in!');
+        } else if (error.status === 403) {
+          alert('Forbidden: You do not have permission to perform this action!');
+        } else {
+          alert('Error: Failed to Load Tickets');
+        }}
     );
   }
 
@@ -36,7 +44,15 @@ export class SupportTicketComponent {
         this.ticket = { ticketId: 0, customerId: 0, issueDescription: '', assignedTo: 0, ticketStatus: '', resolutionDate: null };
         this.loadTickets();
       },
-      (error) => { alert('Failed to add ticket!'); }
+      (error) => { 
+        console.log(error);
+        if (error.status === 401) {
+          alert('Unauthorized: Please log in!');
+        } else if (error.status === 403) {
+          alert('Forbidden: You do not have permission to perform this action!');
+        } else {
+          alert('Error: Failed to Add Ticket');
+        }}
     );
   }
 
@@ -45,7 +61,15 @@ export class SupportTicketComponent {
       () => {
         this.loadTickets();
       },
-      (error) => { alert('Failed to delete ticket!'); }
+      (error) => { 
+        console.log(error);
+        if (error.status === 401) {
+          alert('Unauthorized: Please log in!');
+        } else if (error.status === 403) {
+          alert('Forbidden: You do not have permission to perform this action!');
+        } else {
+          alert('Error: Failed to Delete Ticket');
+        }}
     );
   }
 
@@ -55,7 +79,15 @@ export class SupportTicketComponent {
       (data) => {
         this.ticket = data;
       },
-      (error) => { alert('Failed to fetch ticket for editing!'); }
+      (error) => { 
+        console.log(error);
+        if (error.status === 401) {
+          alert('Unauthorized: Please log in!');
+        } else if (error.status === 403) {
+          alert('Forbidden: You do not have permission to perform this action!');
+        } else {
+          alert('Error: Failed to Edit Ticket');
+        }}
     );
   }
 
@@ -67,7 +99,15 @@ export class SupportTicketComponent {
         this.isEdit = false;
         this.ticket = { ticketId: 0, customerId: 0, issueDescription: '', assignedTo: 0, ticketStatus: '', resolutionDate: null };
       },
-      (error) => { alert('Failed to update ticket!'); }
+      (error) => { 
+        console.log(error);
+        if (error.status === 401) {
+          alert('Unauthorized: Please log in!');
+        } else if (error.status === 403) {
+          alert('Forbidden: You do not have permission to perform this action!');
+        } else {
+          alert('Error: Failed to Update Ticket');
+        }}
     );
   }
 }

@@ -32,7 +32,16 @@ export class TaskComponent {
   loadTasks(): void {
     this.taskService.getAllTasks().subscribe({
       next: (data) => this.tasks = data,
-      error: () => alert('Failed to load tasks')
+      error: (error) => {
+        console.log(error);
+        if (error.status === 401) {
+          alert('Unauthorized: Please log in!');
+        } else if (error.status === 403) {
+          alert('Forbidden: You do not have permission to perform this action!');
+        } else {
+          alert('Error: Failed to Load Tasks');
+        }
+      }
     });
   }
 
@@ -42,14 +51,32 @@ export class TaskComponent {
         this.loadTasks();
         this.resetForm();
       },
-      error: () => alert('Failed to add task')
+      error: (error) => {
+        console.log(error);
+        if (error.status === 401) {
+          alert('Unauthorized: Please log in!');
+        } else if (error.status === 403) {
+          alert('Forbidden: You do not have permission to perform this action!');
+        } else {
+          alert('Error: Failed to Add Task');
+        }
+      }
     });
   }
 
   deleteTask(id: number): void {
     this.taskService.deleteTask(id).subscribe({
       next: () => this.loadTasks(),
-      error: () => alert('Failed to delete task')
+      error: (error) => {
+        console.log(error);
+        if (error.status === 401) {
+          alert('Unauthorized: Please log in!');
+        } else if (error.status === 403) {
+          alert('Forbidden: You do not have permission to perform this action!');
+        } else {
+          alert('Error: Failed to Delete Task');
+        }
+      }
     });
   }
 
@@ -64,7 +91,16 @@ export class TaskComponent {
           this.loadTasks();
           this.resetForm();
         },
-        error: () => alert('Failed to update task')
+        error: (error) => {
+          console.log(error);
+          if (error.status === 401) {
+            alert('Unauthorized: Please log in!');
+          } else if (error.status === 403) {
+            alert('Forbidden: You do not have permission to perform this action!');
+          } else {
+            alert('Error: Failed to Update Task');
+          }
+        }
       });
     }
   }

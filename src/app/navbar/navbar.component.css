@@ -36,7 +36,7 @@
   .navbar-links a {
     color: #fff;
     text-decoration: none;
-    font-size: 1rem;
+    font-size: 0.95rem;
     transition: color 0.3s;
   }
   
@@ -44,3 +44,46 @@
     color: #f39c12;
   }
   
+  .notification-item {
+  position: relative;
+}
+
+.notification-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.notification-dropdown {
+  position: absolute;
+  top: 30px;
+  right: 0;
+  background: white;
+  border: 1px solid #ddd;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  width: 200px;
+  z-index: 1000;
+}
+
+.notification-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.notification {
+  padding: 5px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.notification:last-child {
+  border-bottom: none;
+}
+
+.notification-empty {
+  text-align: center;
+  color: #999;
+}
+
+

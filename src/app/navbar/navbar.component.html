@@ -1,18 +1,38 @@
 <nav class="navbar">
-    <div class="navbar-logo">
-      <img src="assets/CRM_Logo.png" alt="CRM Logo" class="logo" />
-      <span class="logo-text">CRM Platform</span>
-    </div>
-    <ul class="navbar-links">
-      <li><a (click)="navigateTo('/communication-history')">Communication History</a></li>
-      <li><a (click)="navigateTo('/customers')">Customers</a></li>
-      <li><a (click)="navigateTo('/leads')">Leads</a></li>
-      <li><a (click)="navigateTo('/marketing-campaigns')">Marketing Campaigns</a></li>
-      <li><a (click)="navigateTo('/opportunities')">Opportunities</a></li>
-      <li><a (click)="navigateTo('/support-tickets')">Support Tickets</a></li>
-      <li><a (click)="navigateTo('/tasks')">Tasks</a></li>
-      <li><a (click)="navigateTo('/users')">Users</a></li>
-      <li><a (click)="logout()">Logout</a></li> <!-- Logout Button -->
-    </ul>
-  </nav>
-  
+  <div class="navbar-logo">
+    <img src="assets/CRM_Logo.png" alt="CRM Logo" class="logo" />
+    <span class="logo-text">CRM Platform</span>
+  </div>
+  <ul class="navbar-links">
+    <li><a (click)="navigateTo('/home')">Home</a></li>
+    <li><a (click)="navigateTo('/communication-history')">Communication History</a></li>
+    <li><a (click)="navigateTo('/customers')">Customers</a></li>
+    <li><a (click)="navigateTo('/leads')">Leads</a></li>
+    <li><a (click)="navigateTo('/marketing-campaigns')">Marketing Campaigns</a></li>
+    <li><a (click)="navigateTo('/opportunities')">Opportunities</a></li>
+    <li><a (click)="navigateTo('/support-tickets')">Support Tickets</a></li>
+    <li><a (click)="navigateTo('/tasks')">Tasks</a></li>
+    <li><a (click)="navigateTo('/users')">Users</a></li>
+    <li><a (click)="logout()">Logout</a></li>
+    <!-- Notification Icon -->
+    <li class="notification-item">
+      <button (click)="toggleNotifications()" class="notification-button">
+        <span class="notification-icon">🔔</span>
+      </button>
+      <div class="notification-dropdown" *ngIf="showNotifications">
+        <div *ngIf="notifications.length === 0" class="notification-empty">
+          No notifications available.
+        </div>
+        <ul class="notification-list">
+          <li *ngFor="let notification of notifications" class="notification">
+            <div [class.unread]="!notification.isRead">
+              <strong>{{ notification.type }}</strong>
+              <p>{{ notification.message }}</p>
+              <small>{{ formatTimestamp(notification.timestamp) }}</small>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </li>
+  </ul>
+</nav>
